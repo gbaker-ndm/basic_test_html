@@ -1,0 +1,23 @@
+{
+  "name": "package.json",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbaker-ndm/basic_test_html.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gbaker-ndm/basic_test_html/issues"
+  },
+  "homepage": "https://github.com/gbaker-ndm/basic_test_html#readme",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
