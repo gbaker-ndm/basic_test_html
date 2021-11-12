@@ -1,4 +1,12 @@
 <!doctype html>
+
+<!-- 
+                Merchant API Key
+IUpMpUFKjCrDQks0hBCNF6U5u28t0h3WuD392XWpyAhDert3yNtk8ycHO7kE        Gregs
+
+TnJvkslQXRXdbNdtgcY0x5gx9FANZN2o3iNszoHNZIWHUpK0xhZSDgAA82we        NDMs
+-->
+
 <html lang="en">
 
 <head>
@@ -19,7 +27,7 @@
     <h1>Bit Pay button will go in the green div bellow.</h1>
 
     <div id="bitpayButtonContainer">
-
+        <button id="payButton" variants="contained" onclick="bitPayAPICall()">Pay</button>
     </div>
 
     <!-- Optional JavaScript -->
@@ -33,6 +41,30 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
+
+<script>
+    function bitPayAPICall() {
+        axios.get('https://bitpay.devapp.ndmtech.io/invoice/create', {
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            },
+            params: {
+                'Authorization': 'TnJvkslQXRXdbNdtgcY0x5gx9FANZN2o3iNszoHNZIWHUpK0xhZSDgAA82we',
+                'price': 50,
+                'buyerEmail': 'gregory.baker@ndmhopsitality.com'
+            }
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+</script>
 
 </html>

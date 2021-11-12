@@ -19,5 +19,8 @@
   "homepage": "https://github.com/gbaker-ndm/basic_test_html#readme",
   "devDependencies": {
     "lite-server": "^2.6.1"
+  },
+  "dependencies": {
+    "axios": "^0.24.0"
   }
 }
