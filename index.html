@@ -43,13 +43,15 @@ dbLo8oauEfTtQom2268MqNPx9CFoHEjbiMBRxpTonsg
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Merchant Token</label>
-            <input type="number" class="form-control" id="merchantToken"
+            <input type="text" class="form-control" id="merchantToken"
                 placeholder="IUpMpUFKjCrDQks0hBCNF6U5u28t0h3WuD392XWpyAhDert3yNtk8ycHO7kE">
         </div>
         <button id="payButton" variants="contained" type="submit" class="btn btn-primary" onclick="bitPayAPICall()">Pay
             With Input</button>
         <button id="payButton" variants="contained" type="submit" class="btn btn-primary" onclick="bitPayDefault()">Pay
             With Default Info</button>
+        <button id="payButton" variants="contained" type="submit" class="btn btn-primary" onclick="checkInfo()">Check
+            Input Info</button>
     </form>
 
     <!-- Optional JavaScript -->
@@ -77,20 +79,11 @@ dbLo8oauEfTtQom2268MqNPx9CFoHEjbiMBRxpTonsg
     function bitPayAPICall() {
         var setPrice = document.getElementById("priceAmount").value;
         var customerEmail = document.getElementById("clientEmail").value
-        var merchantToken;
+        var merchantToken = document.getElementById("merchantToken").value;
 
-        console.log('setprice = ' + setPrice);
-        console.log('customerEmail = ' + customerEmail);
-
-        if (document.getElementById("merchantToken").value != '') {
-            console.log('merhcant is not null');
-            merchantToken = document.getElementById("merchantToken").value;
-        } else {
+        if (merchantToken == '') {
             merchantToken = 'IUpMpUFKjCrDQks0hBCNF6U5u28t0h3WuD392XWpyAhDert3yNtk8ycHO7kE'
-            console.log('merhcant is null');
         }
-
-        console.log('merchantToken = ' + merchantToken);
 
         axios
             .post(
@@ -138,6 +131,23 @@ dbLo8oauEfTtQom2268MqNPx9CFoHEjbiMBRxpTonsg
                 console.log(error);
                 alert("Something went wrong :(");
             });
+    }
+
+
+    function checkInfo() {
+        var setPrice = document.getElementById("priceAmount").value;
+        var customerEmail = document.getElementById("clientEmail").value
+        var merchantToken = document.getElementById("merchantToken").value;
+
+        console.log('setprice = ' + setPrice);
+        console.log('customerEmail = ' + customerEmail);
+
+        if (merchantToken == '') {
+            merchantToken = 'IUpMpUFKjCrDQks0hBCNF6U5u28t0h3WuD392XWpyAhDert3yNtk8ycHO7kE'
+            console.log('merhcant was empty');
+        }
+
+        console.log('merchantToken = ' + merchantToken);
     }
 </script>
 
