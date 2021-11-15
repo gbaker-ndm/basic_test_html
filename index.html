@@ -5,6 +5,12 @@
 IUpMpUFKjCrDQks0hBCNF6U5u28t0h3WuD392XWpyAhDert3yNtk8ycHO7kE        Gregs
 
 TnJvkslQXRXdbNdtgcY0x5gx9FANZN2o3iNszoHNZIWHUpK0xhZSDgAA82we        NDMs
+
+Wallet Token???
+tb1qs75gm64efzm2jes4skd6prapxlcy85stcy62hm
+
+Bitpay Token???
+dbLo8oauEfTtQom2268MqNPx9CFoHEjbiMBRxpTonsg
 -->
 
 <html lang="en">
@@ -25,10 +31,26 @@ TnJvkslQXRXdbNdtgcY0x5gx9FANZN2o3iNszoHNZIWHUpK0xhZSDgAA82we        NDMs
 
 <body>
     <h1>Bit Pay button will go in the green div bellow.</h1>
-
-    <div id="bitpayButtonContainer">
-        <button id="payButton" variants="contained" onclick="bitPayAPICall()">Pay</button>
-    </div>
+    <form id="bitpayButtonContainer">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="clientEmail" aria-describedby="emailHelp"
+                placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Price</label>
+            <input type="number" class="form-control" id="priceAmount">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Merchant Token</label>
+            <input type="number" class="form-control" id="merchantToken"
+                placeholder="IUpMpUFKjCrDQks0hBCNF6U5u28t0h3WuD392XWpyAhDert3yNtk8ycHO7kE">
+        </div>
+        <button id="payButton" variants="contained" type="submit" class="btn btn-primary" onclick="bitPayAPICall()">Pay
+            With Input</button>
+        <button id="payButton" variants="contained" type="submit" class="btn btn-primary" onclick="bitPayDefault()">Pay
+            With Default Info</button>
+    </form>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -47,22 +69,74 @@ TnJvkslQXRXdbNdtgcY0x5gx9FANZN2o3iNszoHNZIWHUpK0xhZSDgAA82we        NDMs
 </body>
 
 <script>
+    var form = document.getElementById("bitpayButtonContainer");
+    function handleForm(event) { event.preventDefault(); }
+    form.addEventListener('submit', handleForm);
+
+
     function bitPayAPICall() {
-        axios.get('https://bitpay.devapp.ndmtech.io/invoice/create', {
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            },
-            params: {
-                'Authorization': 'TnJvkslQXRXdbNdtgcY0x5gx9FANZN2o3iNszoHNZIWHUpK0xhZSDgAA82we',
-                'price': 50,
-                'buyerEmail': 'gregory.baker@ndmhopsitality.com'
-            }
-        })
-            .then(function (response) {
-                console.log(response);
+        var setPrice = document.getElementById("priceAmount").value;
+        var customerEmail = document.getElementById("clientEmail").value
+        var merchantToken;
+
+        console.log('setprice = ' + setPrice);
+        console.log('customerEmail = ' + customerEmail);
+
+        if (document.getElementById("merchantToken").value != '') {
+            console.log('merhcant is not null');
+            merchantToken = document.getElementById("merchantToken").value;
+        } else {
+            merchantToken = 'IUpMpUFKjCrDQks0hBCNF6U5u28t0h3WuD392XWpyAhDert3yNtk8ycHO7kE'
+            console.log('merhcant is null');
+        }
+
+        console.log('merchantToken = ' + merchantToken);
+
+        axios
+            .post(
+                "https://devapi.ndmtech.io/invoice/create",
+                {
+                    price: setPrice,
+                    buyerEmail: customerEmail
+                },
+                {
+                    headers: {
+                        Authorization: merchantToken,
+                    },
+                }
+            )
+            .then((response) => {
+                console.log(response.data);
+                window.location.replace(response.data.url);
             })
-            .catch(function (error) {
+            .catch((error) => {
                 console.log(error);
+                alert("Something went wrong :(");
+            });
+
+    }
+
+    function bitPayDefault() {
+        axios
+            .post(
+                "https://devapi.ndmtech.io/invoice/create",
+                {
+                    buyerEmail: 'gregory.baker@ndmhospitality.com',
+                    price: 123
+                },
+                {
+                    headers: {
+                        Authorization: 'IUpMpUFKjCrDQks0hBCNF6U5u28t0h3WuD392XWpyAhDert3yNtk8ycHO7kE',
+                    },
+                }
+            )
+            .then((response) => {
+                console.log(response.data);
+                window.location.replace(response.data.url);
+            })
+            .catch((error) => {
+                console.log(error);
+                alert("Something went wrong :(");
             });
     }
 </script>
