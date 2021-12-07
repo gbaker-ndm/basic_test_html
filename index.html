@@ -87,7 +87,7 @@ dbLo8oauEfTtQom2268MqNPx9CFoHEjbiMBRxpTonsg
 
         axios
             .post(
-                "https://devapi.ndmtech.io/invoice/create",
+                "https://devapi.ndmtech.io/ndm/bitpay/v1/invoice/create",
                 {
                     price: setPrice,
                     buyerEmail: customerEmail
@@ -112,7 +112,7 @@ dbLo8oauEfTtQom2268MqNPx9CFoHEjbiMBRxpTonsg
     function bitPayDefault() {
         axios
             .post(
-                "https://devapi.ndmtech.io/invoice/create",
+                "https://devapi.ndmtech.io/ndm/bitpay/v1/invoice/create",
                 {
                     buyerEmail: 'gregory.baker@ndmhospitality.com',
                     price: 123
